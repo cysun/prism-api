@@ -1,111 +1,40 @@
 # Program Review Information System Management (PRISM)
 
-This repository contains the REST API for the client-side portion of PRISM.
+Program Review Information System Management (PRISM) is a document and workflow
+management full-stack web application tailored to the need of the Program Review
+Subcommittee (PRS) at California State University of Los Angeles (CSULA). Prior
+to the introduction of PRISM, the PRS collaborated on documents, distributed
+templates, and coordinated meetings using email. The intent of PRISM is to
+streamline the process by providing a single site where all functions of program
+review may be conducted. PRISM is a web application supporting document
+collaboration, review progress tracking, template management, email
+notifications, calendar events, and modeling of the university's hierarchical
+structure. It greatly simplifies the workflow of the PRS and the department
+chairs, deans, and external reviewers who also partake in the review process.
+
+PRISM was developed by [Andrew McLees](https://github.com/amclees),
+[Leanne David](https://github.com/leannedavid), Justin Sarenas, and Ben-Jair
+Solis as their  [senior design project](https://csns.calstatela.edu/department/cs/project/view?id=6059771)
+at CSULA.
+
+There are two main components of PRISM: a REST API and a single-page application
+which together form a MEAN stack. The REST API is implemented in Node.js with
+Express and Mongoose. The frontend is implemented in Angular 5. This repository
+contains the REST API of PRISM.
 
 ### Setup
 
-These instruction assume that NodeJS, NPM, and MongoDB are already installed on the computer being set up.
+These instruction assume that NodeJS, NPM, and MongoDB are already installed on
+the computer being set up.
 
 1. Clone this repository
 2. Run `npm install` from the project root to install dependencies
-3. Make a copy of the `.env_skeleton` file named `.env` and ensure all parameters that are not commented out in the `.env_skeleton` file are configured properly
+3. Make a copy of the `.env_skeleton` file named `.env` and ensure all
+   parameters that are not commented out in the `.env_skeleton` file are
+   configured properly
 4. Run the MongoDB server that is configured in the `.env` file
-5. Run `node bin/db_setup_development.js` **or** `node bin/db_setup_production.js` for development and production environments respectively. **This will remove all items from ALL MongoDB collections used by PRISM.** It is important to do this from the root of this repository so that the `.env` file can be loaded.
-
-### Running
-
-Be sure that the MongoDB server configured in the `.env` is running before performing any of these steps.
-
-##### Server
-
-Run `npm start`
-
-##### Tests
-
-Run `npm test`
-
-#### Login
-
-Make a request to the POST `/login` endpoint with the following format:
-
-```json
-{
-    "username": "<username>",
-    "password": "<password>"
-}
-```
-
-The `db_setup_development.js` script from the initial setup creates the following users:
-
-* `testUserX` - Basic users, not members of any groups
-* `testPrsX` - Program Review Subcommittee members, members of the `Program Review Subcommittee` group
-* `testAdminX` - Administrators, members of the `Administrators` group
-* `testRootX` - Root, not a member of any groups, bypasses all access control
-
-X is a number between 1 and 15 (e.g. testUser2, testRoot12, testAdmin15, etc.).
-
-All users created by the development script have a password of `password`.
-
-The `db_setup_development.js` script creates only one account:
-
-* `root` - Root, same as `testRootX`. The password is a random string included in the output of the setup script.
-
-Example request and response bodies from the POST `/login` endpoint:
-
-**Request Body**
-
-```json
-{
-	"username": "testAdmin5",
-	"password": "password"
-}
-```
-
-**Response Body**
-
-```json
-{
-    "user": {
-        "_id": "5a5654e0a81dbd2b904b8091",
-        "username": "testAdmin5",
-        "__v": 0,
-        "name": {
-            "first": "first name",
-            "last": "last name"
-        }
-    },
-    "groups": [
-        {
-            "name": "Administrators",
-            "_id": "5a5654e0a81dbd2b904b8082"
-        }
-    ],
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTU2NTRlMGE4MWRiZDJiOTA0YjgwOTEiLCJ1c2VybmFtZSI6InRlc3RBZG1pbjUiLCJlbWFpbCI6ImVtYWlsQGV4YW1wbGUuY29tIiwiaW50ZXJuYWwiOnRydWUsIl9fdiI6MCwicm9vdCI6ZmFsc2UsIm5hbWUiOnsiZmlyc3QiOiJmaXJzdCBuYW1lIiwibGFzdCI6Imxhc3QgbmFtZSJ9LCJpYXQiOjE1MTU2NTE4NDR9.s-O-5xospY9qGzlmMMMQnyCh1Kp-kIZjacDCffA5PgA"
-}
-```
-
-### Making Request to Endpoints
-
-The root URL for the API is `/api` and the default port for the server is 3000.
-
-All endpoints except POST `/login` and external upload endpoints require authentication via Passport.
-
-To authenticate, include the `Authorization` header in all HTTP requests to the API. The format except is `Authorization: Bearer :token` where `:token` is the token received from the POST `/login` endpoint. The cookie `jwtToken` can also be included with the value of the token for authentication.
-
-### Useful links
-
-[Initial Implementation GitHub Project](https://github.com/amclees/prism-api/projects/1)
-
-#### Server-side
-
-* [evelyn-server](https://github.com/cysun/evelyn-server)
-* [Intro to `Promise`s](https://developers.google.com/web/fundamentals/primers/promises)
-* [Express 4 Docs](http://expressjs.com/en/4x/api.html)
-* [Mongoose Guide](http://mongoosejs.com/docs/guide.html)
-* [HTTP Status Codes](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
-
-#### Client-side
-
-* [evelyn-client](https://github.com/cysun/evelyn-client)
-* [PrimeNG Docs](https://www.primefaces.org/primeng/#/)
-* [Angular Docs](https://angular.io/docs/)
+5. Run `node bin/db_setup_development.js` **or**
+   `node bin/db_setup_production.js` for development or production environments,
+   respectively. **This will remove all items from ALL MongoDB collections
+   used by PRISM.** It is important to do this from the root of this repository
+   so that the `.env` file can be loaded.
