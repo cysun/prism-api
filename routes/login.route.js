@@ -40,7 +40,7 @@ router.post('/login', async function(req, res, next) {
       : await adAuthenticate(username + '@' + domain, password);
     if (!authenticated) return res.sendStatus(400);
 
-    let groupsWithUser = await Group.find({ member: user._id });
+    let groupsWithUser = await Group.find({ members: user._id });
     const issueTime = new Date().getTime();
     const token = jwt.sign(
       _.assign(user.excludeFields(['passwordHash']), { issued: issueTime }),

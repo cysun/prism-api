@@ -36,7 +36,7 @@ router.route('/user/:user_id')
             }
             user.save().then(function() {
               tokenCache.modifyUser(req.params.user_id);
-              if (req.user._id.equals(mongoose.Types.ObjectId(req.params.user_id))) {
+              if (req.user._id == req.params.user_id) {
                 res.json(user.excludeFieldsWithConfig());
               } else {
                 res.json(user.excludeFields());
