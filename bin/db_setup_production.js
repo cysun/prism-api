@@ -24,8 +24,8 @@ module.exports = function() {
                        password: rootPassword,
                        email: 'root@prism.calstatela.edu',
                        name: {
-                         first: 'Root',
-                         last: 'User'
+                         first: 'System',
+                         last: 'Admin'
                        },
                        internal: true,
                        root: true

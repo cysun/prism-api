@@ -71,7 +71,7 @@ userSchema.path('email').validate({
   message: 'Email must be a valid email'
 });
 
-const fieldsToExcludeWithConfig = ['internal', 'samlType', 'passwordHash'];
+const fieldsToExcludeWithConfig = ['samlType', 'passwordHash'];
 const fieldsToExclude = fieldsToExcludeWithConfig.concat('config');
 userSchema.methods = {
   setPassword: function(passwordPlaintext) {
