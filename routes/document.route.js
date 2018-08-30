@@ -28,11 +28,6 @@ const upload =
         } else {
           callback(new Error('Invalid file extension'));
         }
-      },
-      limits: {
-        fields: 0,
-        files: 1,
-        fileSize: settings.revisionMaxFileSize
       }
     }).single('file');
 
