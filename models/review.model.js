@@ -14,6 +14,7 @@ const reviewSchema = new mongoose.Schema({
     ref: 'Program',
     required: true
   },
+  title: String,
   startDate: {
     type: Date,
     default: Date.now
