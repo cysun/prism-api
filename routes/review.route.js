@@ -34,7 +34,7 @@ router.route('/review/:review_id')
     })
     .patch(access.allowGroups(['Administrators', 'Program Review Subcommittee']), function(req, res, next) {
       for (let property of _.keys(req.body)) {
-        if (['program', 'leadReviewers'].indexOf(property) === -1) {
+        if (['program', 'leadReviewers', 'title'].indexOf(property) === -1) {
           res.sendStatus(400);
           return;
         }
