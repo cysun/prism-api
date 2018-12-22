@@ -48,7 +48,7 @@ reviewSchema.path('nodes').validate({
   message: 'Invalid nodes in Review'
 });
 
-reviewSchema.post('init', reviewDateEstimation.recalculateDates);
+// reviewSchema.post('init', reviewDateEstimation.recalculateDates);
 reviewSchema.methods.recalculateDates = reviewDateEstimation.recalculateDates;
 
 module.exports = mongoose.model('Review', reviewSchema);
